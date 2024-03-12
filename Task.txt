@@ -1,0 +1,31 @@
+The task 
+
+
+Your task is to implement a service to process events coming from a Kinesis stream and save them in an S3 bucket.
+The stream delivers around 1M events/hour and there are 100 different types of events, all mixed together. Events
+are json objects. All of them contain the common fields:
+● event_uuid - unique identifier of the event
+● event_name - string identifying the type of the event, it can consist of multiple parts separated by ":", for
+example: "account:created", "lesson:started", “payment:order:completed”
+● created_at - Unix timestamp of the event creation
+The rest of the payload consists of fields related to the event type.
+The saved events should have the following, additional fields:
+● created_datetime - date and time from the created_at field, in the ISO 8601 format
+● event_type - the first element from the event_name field
+● event_subtype - the second element from the event_name field
+Please assume that the system will be working on the AWS cloud.
+Design questions
+● How would you handle the duplicate events? What quality metrics would you define for the input data?
+● How would you partition the data to ensure good performance and scalability? Would your proposed solution
+still be the same if the amount of events is 1000 times smaller or bigger?
+● What format would you use to store the data?
+Deliverables
+● Python 3 source code for the transformations
+● Terraform file for provisioning infrastructure
+● A README file documenting your solution (doc, txt)
+○ An architecture diagram with short explanations of the technologies chosen and answers to the
+design questions
+○ Short explanations of the technologies chosen and why
+○ Answers to the design questions.
+Note: If you want to show off your abilities, we're looking forward to seeing your code for the proposed architecture
+and deployment/automation scripts. If not, don't worry! A well-explained solution will suffice
